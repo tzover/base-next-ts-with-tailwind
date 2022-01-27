@@ -1,0 +1,19 @@
+version: "3.3"
+services:
+  frontend:
+    image: ${IMAGE_BASENAME}/ui:${TAG}
+    container_name: ${CONTAINER_BASENAME}-ui
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./app:/home/node/app
+      - frontend-volume/:/home/node/app/node_modules
+    ports:
+      - ${FRONTEND_PORT}:3000
+    tty: true
+    restart: always
+volumes:
+  frontend-volume:
+    name: ${CONTAINER_BASENAME}-volume
+    driver: local
